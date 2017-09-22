@@ -60,11 +60,11 @@ def get_butt_desc(hipIn):
     global butt_desc
     if hipIn is '':
         butt_desc = 'Error!'
-    elif int(hipIn) <= 34:
+    elif int(hipIn) <= 32:
         butt_desc = 'Small'
-    elif int(hipIn) in range(35, 39):
+    elif int(hipIn) in range(33, 40):
         butt_desc = 'Medium'
-    elif int(hipIn) in range(39, 44):
+    elif int(hipIn) in range(40, 44):
         butt_desc = 'Large'
     elif int(hipIn) >= 44:
         butt_desc = 'Huge'

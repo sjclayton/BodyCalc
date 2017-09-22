@@ -13,7 +13,7 @@ mainWindow.maxsize(460, 270)
 def get_bmi(weightIn, heightIn):
     global bmi
     if weightIn is '' or heightIn is '':
-        bmi = 0
+        bmi = 'Error!'
     else:
         bmi = math.floor(int(weightIn) / (float(heightIn) * float(heightIn)))
 
@@ -109,46 +109,45 @@ def get_body_shape(bustIn, waistIn, hipIn):
 def get_body_type(bmi, shape):
     global body_type
     type_descriptor = ''
-    if int(bmi) in range(1, 18):
-        type_descriptor = 'A'
-    elif int(bmi) in range(18, 23):
-        type_descriptor = 'B'
-    elif int(bmi) in range(23, 29):
-        type_descriptor = 'C'
-    elif int(bmi) in range(29, 55):
-        type_descriptor = 'D'
-    elif int(bmi) >= 55:
-        type_descriptor = 'E'
+    try:
+        if int(bmi) in range(1, 18):
+            type_descriptor = 'A'
+        elif int(bmi) in range(18, 23):
+            type_descriptor = 'B'
+        elif int(bmi) in range(23, 29):
+            type_descriptor = 'C'
+        elif int(bmi) in range(29, 55):
+            type_descriptor = 'D'
+        elif int(bmi) >= 55:
+            type_descriptor = 'E'
 
-    # Debugging purposes only!
-    print(bmi, type_descriptor)
+        # Debugging purposes only!
+        print(bmi, type_descriptor)
 
-    if int(bmi) == 0:
-        body_type = 'Error!'
-    elif type_descriptor == 'A':
-        body_type = 'Skinny'
-    elif type_descriptor == 'B':
-        body_type = 'Petite'
-    elif type_descriptor == 'C' and shape != 'Hourglass':
-        body_type = 'Average'
-    elif type_descriptor == 'C' and shape == 'Hourglass':
-        body_type = 'Curvy'
-    elif type_descriptor == 'D' and shape == 'Banana':
-        body_type = 'BBW'
-    elif type_descriptor == 'D' and shape == 'Hourglass':
-        body_type = 'BBW - Curvy'
-    elif type_descriptor == 'D' and shape == 'Pear':
-        body_type = 'BBW - Bottom Heavy'
-    elif type_descriptor == 'D' and shape == 'Apple':
-        body_type = 'BBW - Top Heavy'
-    elif type_descriptor == 'E' and shape == 'Banana':
-        body_type = 'SSBBW'
-    elif type_descriptor == 'E' and shape == 'Apple':
-        body_type = 'SSBBW - Top Heavy'
-    elif type_descriptor == 'E' and shape == 'Pear':
-        body_type = 'SSBBW - Bottom Heavy'
-    else:
-        body_type = ''
+        if type_descriptor == 'A':
+            body_type = 'Skinny'
+        elif type_descriptor == 'B':
+            body_type = 'Petite'
+        elif type_descriptor == 'C' and shape != 'Hourglass':
+            body_type = 'Average'
+        elif type_descriptor == 'C' and shape == 'Hourglass':
+            body_type = 'Curvy'
+        elif type_descriptor == 'D' and shape == 'Banana':
+            body_type = 'BBW'
+        elif type_descriptor == 'D' and shape == 'Hourglass':
+            body_type = 'BBW - Curvy'
+        elif type_descriptor == 'D' and shape == 'Pear':
+            body_type = 'BBW - Bottom Heavy'
+        elif type_descriptor == 'D' and shape == 'Apple':
+            body_type = 'BBW - Top Heavy'
+        elif type_descriptor == 'E' and shape == 'Banana':
+            body_type = 'SSBBW'
+        elif type_descriptor == 'E' and shape == 'Apple':
+            body_type = 'SSBBW - Top Heavy'
+        elif type_descriptor == 'E' and shape == 'Pear':
+            body_type = 'SSBBW - Bottom Heavy'
+    except ValueError:
+            body_type = 'Error!'
 
 
 def calculate():

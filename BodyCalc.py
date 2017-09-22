@@ -18,21 +18,22 @@ def get_bmi(weightIn, heightIn):
         bmi = math.floor(int(weightIn) / (float(heightIn) * float(heightIn)))
 
 
-def get_breast_desc(cupIn):
+def get_breast_desc(cup):
     global breast_desc
-    if cupIn is '':
+    cupOut = cup.upper()
+    if cupOut is '':
         breast_multiplier = 99
-    elif cupIn in ['AA', 'A']:
+    elif cupOut in ['AA', 'A']:
         breast_multiplier = 1
-    elif cupIn in ['B']:
+    elif cupOut in ['B']:
         breast_multiplier = 2
-    elif cupIn in ['C', 'D']:
+    elif cupOut in ['C', 'D']:
         breast_multiplier = 3
-    elif cupIn in ['DD', 'DDD', 'E', 'EE', 'EEE', 'F', 'G']:
+    elif cupOut in ['DD', 'DDD', 'E', 'EE', 'EEE', 'F', 'G']:
         breast_multiplier = 4
-    elif cupIn in ['FFF', 'GG', 'GGG', 'H', 'HH', 'I']:
+    elif cupOut in ['FFF', 'GG', 'GGG', 'H', 'HH', 'I']:
         breast_multiplier = 5
-    elif cupIn in ['HHH', 'II', 'III', 'JJ', 'K']:
+    elif cupOut in ['HHH', 'II', 'III', 'JJ', 'K']:
         breast_multiplier = 6
     else:
         breast_multiplier = 0

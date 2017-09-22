@@ -117,7 +117,7 @@ def get_body_type(bmi, shape):
         type_descriptor = 'C'
     elif int(bmi) in range(25, 30):
         type_descriptor = 'D'
-    elif int(bmi) > 30:
+    elif int(bmi) >= 30:
         type_descriptor = 'E'
 
     # Debugging purposes only!

@@ -109,15 +109,15 @@ def get_body_shape(bustIn, waistIn, hipIn):
 def get_body_type(bmi, shape):
     global body_type
     type_descriptor = ''
-    if int(bmi) in range(1, 17):
+    if int(bmi) in range(1, 18):
         type_descriptor = 'A'
-    elif int(bmi) in range(17, 20):
+    elif int(bmi) in range(18, 23):
         type_descriptor = 'B'
-    elif int(bmi) in range(20, 25):
+    elif int(bmi) in range(23, 29):
         type_descriptor = 'C'
-    elif int(bmi) in range(25, 30):
+    elif int(bmi) in range(29, 55):
         type_descriptor = 'D'
-    elif int(bmi) >= 30:
+    elif int(bmi) >= 55:
         type_descriptor = 'E'
 
     # Debugging purposes only!
@@ -141,8 +141,12 @@ def get_body_type(bmi, shape):
         body_type = 'BBW - Bottom Heavy'
     elif type_descriptor == 'D' and shape == 'Apple':
         body_type = 'BBW - Top Heavy'
-    elif type_descriptor == 'E':
+    elif type_descriptor == 'E' and shape == 'Banana':
         body_type = 'SSBBW'
+    elif type_descriptor == 'E' and shape == 'Apple':
+        body_type = 'SSBBW - Top Heavy'
+    elif type_descriptor == 'E' and shape == 'Pear':
+        body_type = 'SSBBW - Bottom Heavy'
     else:
         body_type = ''
 

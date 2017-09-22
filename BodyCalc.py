@@ -121,7 +121,7 @@ def get_body_type(bmi, shape):
         type_descriptor = 'E'
 
     # Debugging purposes only!
-    print(type_descriptor)
+    print(bmi, type_descriptor)
 
     if int(bmi) == 0:
         body_type = 'Error!'

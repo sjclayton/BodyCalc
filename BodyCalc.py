@@ -1,14 +1,21 @@
 from tkinter import *
 import math
+import os
 
 mainWindow = Tk()
 
 mainWindow.title('BodyCalc')
-mainWindow.iconbitmap('BodyCalc.ico')
 mainWindow.configure(background='#222')
 mainWindow.minsize(460, 270)
 mainWindow.maxsize(460, 270)
 
+if getattr(sys, 'frozen', False):
+    application_path = sys._MEIPASS
+elif __file__:
+    application_path = os.path.dirname(__file__)
+
+iconFile = 'BodyCalc.ico'
+mainWindow.iconbitmap(default=os.path.join(application_path, iconFile))
 
 def get_bmi(weightIn, heightIn):
     global bmi

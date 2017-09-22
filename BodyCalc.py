@@ -95,7 +95,9 @@ def get_body_shape(bustIn, waistIn, hipIn):
         lowVal = min(inputBust, inputWaist, inputHip)
         difference = highVal - lowVal
 
+        # Debugging purposes only!
         print(highVal, lowVal, difference)
+
         if int(difference) <= 5:
             body_shape = 'Banana'
 
@@ -117,6 +119,7 @@ def get_body_type(bmi, shape):
     elif int(bmi) > 30:
         type_descriptor = 'E'
 
+    # Debugging purposes only!
     print(type_descriptor)
 
     if int(bmi) == 0:

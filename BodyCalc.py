@@ -68,7 +68,7 @@ def get_butt_desc(hipIn):
         butt_desc = 'Large'
     elif int(hipIn) in range(44, 48):
         butt_desc = 'Huge'
-    elif int(hipIn) <= 48:
+    elif int(hipIn) >= 48:
         butt_desc = 'Massive'
     else:
         butt_desc = ''

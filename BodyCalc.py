@@ -61,9 +61,9 @@ def get_butt_desc(hipIn):
         butt_desc = 'Error!'
     elif int(hipIn) <= 34:
         butt_desc = 'Small'
-    elif int(hipIn) in range(35,39):
+    elif int(hipIn) in range(35, 39):
         butt_desc = 'Medium'
-    elif int(hipIn) in range(39,44):
+    elif int(hipIn) in range(39, 44):
         butt_desc = 'Large'
     elif int(hipIn) >= 44:
         butt_desc = 'Huge'
@@ -110,11 +110,11 @@ def get_body_type(bmi, shape):
     type_descriptor = ''
     if int(bmi) in range(1, 17):
         type_descriptor = 'A'
-    elif int(bmi) in range(17,20):
+    elif int(bmi) in range(17, 20):
         type_descriptor = 'B'
-    elif int(bmi) in range(20,25):
+    elif int(bmi) in range(20, 25):
         type_descriptor = 'C'
-    elif int(bmi) in range(25,30):
+    elif int(bmi) in range(25, 30):
         type_descriptor = 'D'
     elif int(bmi) > 30:
         type_descriptor = 'E'

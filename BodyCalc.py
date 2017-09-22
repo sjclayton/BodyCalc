@@ -3,7 +3,7 @@ import math
 
 mainWindow = Tk()
 
-mainWindow.title('Body Stats Calculator')
+mainWindow.title('BodyCalc')
 mainWindow.iconbitmap('BodyCalc.ico')
 mainWindow.configure(background='#222')
 mainWindow.minsize(460, 270)

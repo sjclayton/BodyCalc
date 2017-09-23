@@ -21,7 +21,7 @@ mainWindow.iconbitmap(default=os.path.join(application_path, iconFile))
 def get_bmi(weight, height):
     global bmi
     try:
-        if weight is '' or height is '':
+        if not (weight and height):
             bmi = 'Error!'
         else:
             bmi = math.floor(int(weight) / (float(height) * float(height)))

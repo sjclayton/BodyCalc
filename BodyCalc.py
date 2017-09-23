@@ -1,41 +1,73 @@
 from tkinter import *
 import math
+import os
 
 mainWindow = Tk()
 
-mainWindow.title('Body Stats Calculator')
-mainWindow.iconbitmap('BodyCalc.ico')
+mainWindow.title('BodyCalc')
 mainWindow.configure(background='#222')
 mainWindow.minsize(460, 270)
 mainWindow.maxsize(460, 270)
 
+if getattr(sys, 'frozen', False):
+    application_path = sys._MEIPASS
+elif __file__:
+    application_path = os.path.dirname(__file__)
 
-def get_bmi(weightIn, heightIn):
+iconFile = 'BodyCalc.ico'
+mainWindow.iconbitmap(default=os.path.join(application_path, iconFile))
+
+
+def get_bmi(weight, height):
     global bmi
-    if weightIn is '' or heightIn is '':
-        bmi = 0
+    if weight is '' or height is '':
+        bmi = 'Error!'
     else:
-        bmi = math.floor(int(weightIn) / (float(heightIn) * float(heightIn)))
+        bmi = math.floor(int(weight) / (float(height) * float(height)))
 
 
-def get_breast_desc(cupIn):
+def get_breast_desc(bust, cup):
     global breast_desc
-    if cupIn is '':
+    bust_scale = ''
+    try:
+        bust = int(bust)
+        if bust < 34:
+            bust_scale = 'Below Average'
+        elif bust >= 34:
+            bust_scale = 'Above Average'
+    except ValueError:
+            bust_scale = 'Error!'
+
+    cupOut = cup.upper()
+    if cupOut is '' and bust_scale is 'Error!':
         breast_multiplier = 99
-    elif cupIn in ['AA', 'A']:
+    elif cupOut in ['AA', 'A'] and bust_scale is 'Below Average':
         breast_multiplier = 1
-    elif cupIn in ['B']:
+    elif cupOut in ['AA', 'A'] and bust_scale is 'Above Average':
         breast_multiplier = 2
-    elif cupIn in ['C', 'D']:
+    elif cupOut in ['B', 'C'] and bust_scale is 'Below Average':
+        breast_multiplier = 2
+    elif cupOut in ['D'] and bust_scale is 'Below Average':
         breast_multiplier = 3
-    elif cupIn in ['DD', 'DDD', 'E', 'EE', 'EEE', 'F', 'G']:
+    elif cupOut in ['B', 'C', 'D'] and bust_scale is 'Above Average':
+        breast_multiplier = 3
+    elif cupOut in ['DD', 'DDD', 'E', 'EE', 'EEE', 'F', 'G'] and bust_scale is 'Below Average':
+        breast_multiplier = 3
+    elif cupOut in ['DD', 'DDD', 'E', 'EE', 'EEE', 'F', 'G'] and bust_scale is 'Above Average':
         breast_multiplier = 4
-    elif cupIn in ['FFF', 'GG', 'GGG', 'H', 'HH', 'I']:
+    elif cupOut in ['FFF', 'GG', 'GGG', 'H', 'HH', 'I'] and bust_scale is 'Below Average':
+        breast_multiplier = 4
+    elif cupOut in ['FFF', 'GG', 'GGG', 'H', 'HH', 'I'] and bust_scale is 'Above Average':
         breast_multiplier = 5
-    elif cupIn in ['HHH', 'II', 'III', 'JJ', 'K']:
+    elif cupOut in ['HHH', 'II', 'III', 'JJ', 'K'] and bust_scale is 'Below Average':
+        breast_multiplier = 5
+    elif cupOut in ['HHH', 'II', 'III', 'JJ', 'K'] and bust_scale is 'Above Average':
         breast_multiplier = 6
     else:
         breast_multiplier = 0
+
+    # Debugging purposes only!
+    print(bust_scale, breast_multiplier)
 
     if breast_multiplier == 1:
         breast_desc = 'Tiny'
@@ -49,24 +81,24 @@ def get_breast_desc(cupIn):
         breast_desc = 'Huge'
     elif breast_multiplier == 6:
         breast_desc = 'Massive'
-    elif breast_multiplier == 99:
+    elif breast_multiplier == 99 or breast_multiplier == 0:
         breast_desc = 'Error!'
-    else:
-        breast_desc = ''
 
 
 def get_butt_desc(hipIn):
     global butt_desc
     if hipIn is '':
         butt_desc = 'Error!'
-    elif int(hipIn) <= 34:
+    elif int(hipIn) <= 32:
         butt_desc = 'Small'
-    elif int(hipIn) in range(35, 39):
+    elif int(hipIn) in range(33, 40):
         butt_desc = 'Medium'
-    elif int(hipIn) in range(39, 44):
+    elif int(hipIn) in range(40, 44):
         butt_desc = 'Large'
-    elif int(hipIn) >= 44:
+    elif int(hipIn) in range(44, 48):
         butt_desc = 'Huge'
+    elif int(hipIn) >= 48:
+        butt_desc = 'Massive'
     else:
         butt_desc = ''
 
@@ -100,7 +132,6 @@ def get_body_shape(bustIn, waistIn, hipIn):
 
         if int(difference) <= 5:
             body_shape = 'Banana'
-
     except ValueError:
             body_shape = 'Error!'
 
@@ -108,42 +139,47 @@ def get_body_shape(bustIn, waistIn, hipIn):
 def get_body_type(bmi, shape):
     global body_type
     type_descriptor = ''
-    if int(bmi) in range(1, 17):
-        type_descriptor = 'A'
-    elif int(bmi) in range(17, 20):
-        type_descriptor = 'B'
-    elif int(bmi) in range(20, 25):
-        type_descriptor = 'C'
-    elif int(bmi) in range(25, 30):
-        type_descriptor = 'D'
-    elif int(bmi) > 30:
-        type_descriptor = 'E'
+    try:
+        if int(bmi) in range(1, 18):
+            type_descriptor = 'A'
+        elif int(bmi) in range(18, 23):
+            type_descriptor = 'B'
+        elif int(bmi) in range(23, 29):
+            type_descriptor = 'C'
+        elif int(bmi) in range(29, 55):
+            type_descriptor = 'D'
+        elif int(bmi) >= 55:
+            type_descriptor = 'E'
 
-    # Debugging purposes only!
-    print(type_descriptor)
+        # Debugging purposes only!
+        print(bmi, type_descriptor)
 
-    if int(bmi) == 0:
-        body_type = 'Error!'
-    elif type_descriptor == 'A':
-        body_type = 'Skinny'
-    elif type_descriptor == 'B':
-        body_type = 'Petite'
-    elif type_descriptor == 'C' and shape != 'Hourglass':
-        body_type = 'Average'
-    elif type_descriptor == 'C' and shape == 'Hourglass':
-        body_type = 'Curvy'
-    elif type_descriptor == 'D' and shape == 'Banana':
-        body_type = 'BBW'
-    elif type_descriptor == 'D' and shape == 'Hourglass':
-        body_type = 'BBW - Curvy'
-    elif type_descriptor == 'D' and shape == 'Pear':
-        body_type = 'BBW - Bottom Heavy'
-    elif type_descriptor == 'D' and shape == 'Apple':
-        body_type = 'BBW - Top Heavy'
-    elif type_descriptor == 'E':
-        body_type = 'SSBBW'
-    else:
-        body_type = ''
+        if shape == 'Error!':
+            body_type = 'Error!'
+        elif type_descriptor == 'A':
+            body_type = 'Skinny'
+        elif type_descriptor == 'B':
+            body_type = 'Petite'
+        elif type_descriptor == 'C' and shape != 'Hourglass':
+            body_type = 'Average'
+        elif type_descriptor == 'C' and shape == 'Hourglass':
+            body_type = 'Curvy'
+        elif type_descriptor == 'D' and shape == 'Banana':
+            body_type = 'BBW'
+        elif type_descriptor == 'D' and shape == 'Hourglass':
+            body_type = 'BBW - Curvy'
+        elif type_descriptor == 'D' and shape == 'Pear':
+            body_type = 'BBW - Bottom Heavy'
+        elif type_descriptor == 'D' and shape == 'Apple':
+            body_type = 'BBW - Top Heavy'
+        elif type_descriptor == 'E' and shape == 'Banana':
+            body_type = 'SSBBW'
+        elif type_descriptor == 'E' and shape == 'Apple':
+            body_type = 'SSBBW - Top Heavy'
+        elif type_descriptor == 'E' and shape == 'Pear':
+            body_type = 'SSBBW - Bottom Heavy'
+    except ValueError:
+            body_type = 'Error!'
 
 
 def calculate():
@@ -159,7 +195,7 @@ def calculate():
     bmiTxt.configure(state='disabled')
     breastTxt.configure(state='normal')
     breastTxt.delete(1.0, END)
-    get_breast_desc(cupIn.get())
+    get_breast_desc(bustIn.get(), cupIn.get())
     breastTxt.insert(END, breast_desc)
     breastTxt.configure(state='disabled')
     buttTxt.configure(state='normal')

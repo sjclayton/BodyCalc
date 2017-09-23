@@ -20,11 +20,13 @@ mainWindow.iconbitmap(default=os.path.join(application_path, iconFile))
 
 def get_bmi(weight, height):
     global bmi
-    if weight is '' or height is '':
+    try:
+        if weight is '' or height is '':
+            bmi = 'Error!'
+        else:
+            bmi = math.floor(int(weight) / (float(height) * float(height)))
+    except ValueError:
         bmi = 'Error!'
-    else:
-        bmi = math.floor(int(weight) / (float(height) * float(height)))
-
 
 def get_breast_desc(bust, cup):
     global breast_desc

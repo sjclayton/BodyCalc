@@ -17,6 +17,7 @@ elif __file__:
 iconFile = 'BodyCalc.ico'
 mainWindow.iconbitmap(default=os.path.join(application_path, iconFile))
 
+
 def get_bmi(weightIn, heightIn):
     global bmi
     if weightIn is '' or heightIn is '':
@@ -110,7 +111,6 @@ def get_body_shape(bustIn, waistIn, hipIn):
 
         if int(difference) <= 5:
             body_shape = 'Banana'
-
     except ValueError:
             body_shape = 'Error!'
 

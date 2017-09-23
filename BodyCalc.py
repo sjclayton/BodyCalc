@@ -154,7 +154,9 @@ def get_body_type(bmi, shape):
         # Debugging purposes only!
         print(bmi, type_descriptor)
 
-        if type_descriptor == 'A':
+        if shape == 'Error!':
+            body_type = 'Error!'
+        elif type_descriptor == 'A':
             body_type = 'Skinny'
         elif type_descriptor == 'B':
             body_type = 'Petite'

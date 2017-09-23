@@ -18,33 +18,56 @@ iconFile = 'BodyCalc.ico'
 mainWindow.iconbitmap(default=os.path.join(application_path, iconFile))
 
 
-def get_bmi(weightIn, heightIn):
+def get_bmi(weight, height):
     global bmi
-    if weightIn is '' or heightIn is '':
+    if weight is '' or height is '':
         bmi = 'Error!'
     else:
-        bmi = math.floor(int(weightIn) / (float(heightIn) * float(heightIn)))
+        bmi = math.floor(int(weight) / (float(height) * float(height)))
 
 
-def get_breast_desc(cup):
+def get_breast_desc(bust, cup):
     global breast_desc
+    bust_scale = ''
+    try:
+        bust = int(bust)
+        if bust < 34:
+            bust_scale = 'Below Average'
+        elif bust >= 34:
+            bust_scale = 'Above Average'
+    except ValueError:
+            bust_scale = 'Error!'
+
     cupOut = cup.upper()
-    if cupOut is '':
+    if cupOut is '' and bust_scale is 'Error!':
         breast_multiplier = 99
-    elif cupOut in ['AA', 'A']:
+    elif cupOut in ['AA', 'A'] and bust_scale is 'Below Average':
         breast_multiplier = 1
-    elif cupOut in ['B']:
+    elif cupOut in ['AA', 'A'] and bust_scale is 'Above Average':
         breast_multiplier = 2
-    elif cupOut in ['C', 'D']:
+    elif cupOut in ['B', 'C'] and bust_scale is 'Below Average':
+        breast_multiplier = 2
+    elif cupOut is 'D' and bust_scale is 'Below Average':
         breast_multiplier = 3
-    elif cupOut in ['DD', 'DDD', 'E', 'EE', 'EEE', 'F', 'G']:
+    elif cupOut in ['B', 'C', 'D'] and bust_scale is 'Above Average':
+        breast_multiplier = 3
+    elif cupOut in ['DD', 'DDD', 'E', 'EE', 'EEE', 'F', 'G'] and bust_scale is 'Below Average':
+        breast_multiplier = 3
+    elif cupOut in ['DD', 'DDD', 'E', 'EE', 'EEE', 'F', 'G'] and bust_scale is 'Above Average':
         breast_multiplier = 4
-    elif cupOut in ['FFF', 'GG', 'GGG', 'H', 'HH', 'I']:
+    elif cupOut in ['FFF', 'GG', 'GGG', 'H', 'HH', 'I'] and bust_scale is 'Below Average':
+        breast_multiplier = 4
+    elif cupOut in ['FFF', 'GG', 'GGG', 'H', 'HH', 'I'] and bust_scale is 'Above Average':
         breast_multiplier = 5
-    elif cupOut in ['HHH', 'II', 'III', 'JJ', 'K']:
+    elif cupOut in ['HHH', 'II', 'III', 'JJ', 'K'] and bust_scale is 'Below Average':
+        breast_multiplier = 5
+    elif cupOut in ['HHH', 'II', 'III', 'JJ', 'K'] and bust_scale is 'Above Average':
         breast_multiplier = 6
     else:
         breast_multiplier = 0
+
+    # Debugging purposes only!
+    print(bust_scale, breast_multiplier)
 
     if breast_multiplier == 1:
         breast_desc = 'Tiny'
@@ -58,10 +81,8 @@ def get_breast_desc(cup):
         breast_desc = 'Huge'
     elif breast_multiplier == 6:
         breast_desc = 'Massive'
-    elif breast_multiplier == 99:
+    elif breast_multiplier == 99 or breast_multiplier == 0:
         breast_desc = 'Error!'
-    else:
-        breast_desc = ''
 
 
 def get_butt_desc(hipIn):
@@ -172,7 +193,7 @@ def calculate():
     bmiTxt.configure(state='disabled')
     breastTxt.configure(state='normal')
     breastTxt.delete(1.0, END)
-    get_breast_desc(cupIn.get())
+    get_breast_desc(bustIn.get(), cupIn.get())
     breastTxt.insert(END, breast_desc)
     breastTxt.configure(state='disabled')
     buttTxt.configure(state='normal')

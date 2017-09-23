@@ -188,7 +188,7 @@ def get_body_type(bmi, shape):
             body_type = 'Error!'
 
 
-def calculate():
+def calculate(event):
     global bmi
     global breast_desc
     global butt_desc
@@ -265,10 +265,12 @@ typeLbl.grid(row=4, column=0, pady=5)
 typeTxt = Text(frameOutput, state='disabled', width=20, height=1, bg='#444', fg='#fff', pady=5)
 typeTxt.grid(row=4, column=1, pady=5, sticky=W)
 
-calcBtn = Button(mainWindow, text='Calculate', width=10, command=calculate)
+calcBtn = Button(mainWindow, text='Calculate', width=10)
+calcBtn.bind('<Button-1>', calculate)
 calcBtn.place(x=57, y=230)
 
 frameMain.pack(side=LEFT, anchor=N, ipadx=5, padx=25, pady=10, fill=X)
 frameOutput.pack(side=LEFT, anchor=N, ipadx=5, pady=10, fill=X)
 
+mainWindow.bind('<Return>', calculate)
 mainWindow.mainloop()

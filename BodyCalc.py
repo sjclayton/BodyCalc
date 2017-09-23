@@ -62,9 +62,9 @@ def get_breast_desc(bust, cup):
         breast_multiplier = 4
     elif cupOut in ['FFF', 'GG', 'GGG', 'H', 'HH', 'I'] and bust_scale is 'Above Average':
         breast_multiplier = 5
-    elif cupOut in ['HHH', 'II', 'III', 'JJ', 'K'] and bust_scale is 'Below Average':
+    elif cupOut in ['HHH', 'II', 'III', 'J', 'JJ', 'K'] and bust_scale is 'Below Average':
         breast_multiplier = 5
-    elif cupOut in ['HHH', 'II', 'III', 'JJ', 'K'] and bust_scale is 'Above Average':
+    elif cupOut in ['HHH', 'II', 'III', 'J', 'JJ', 'K'] and bust_scale is 'Above Average':
         breast_multiplier = 6
     else:
         breast_multiplier = 0

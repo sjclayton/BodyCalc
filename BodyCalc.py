@@ -28,6 +28,7 @@ def get_bmi(weight, height):
     except ValueError:
         bmi = 'Error!'
 
+
 def get_breast_desc(bust, cup):
     global breast_desc
     bust_scale = ''
@@ -89,20 +90,23 @@ def get_breast_desc(bust, cup):
 
 def get_butt_desc(hipIn):
     global butt_desc
-    if hipIn is '':
+    try:
+        if hipIn is '':
+            butt_desc = 'Error!'
+        elif int(hipIn) <= 32:
+            butt_desc = 'Small'
+        elif int(hipIn) in range(33, 40):
+            butt_desc = 'Medium'
+        elif int(hipIn) in range(40, 44):
+            butt_desc = 'Large'
+        elif int(hipIn) in range(44, 48):
+            butt_desc = 'Huge'
+        elif int(hipIn) >= 48:
+            butt_desc = 'Massive'
+        else:
+            butt_desc = ''
+    except ValueError:
         butt_desc = 'Error!'
-    elif int(hipIn) <= 32:
-        butt_desc = 'Small'
-    elif int(hipIn) in range(33, 40):
-        butt_desc = 'Medium'
-    elif int(hipIn) in range(40, 44):
-        butt_desc = 'Large'
-    elif int(hipIn) in range(44, 48):
-        butt_desc = 'Huge'
-    elif int(hipIn) >= 48:
-        butt_desc = 'Massive'
-    else:
-        butt_desc = ''
 
 
 def get_body_shape(bustIn, waistIn, hipIn):

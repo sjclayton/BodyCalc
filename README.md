@@ -29,3 +29,8 @@ Notes
 All measurements must be in inches, except for Height and Weight (which need to be in metric, meters and kilograms respectively).
 
 Breast Size can only be calculated if both the Bust measurement and Cup size are entered.
+
+**Shortcut Keys:**
+
+\ - Clear All Input Fields
+Enter - Calculate

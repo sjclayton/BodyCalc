@@ -221,6 +221,15 @@ def calculate(event):
     typeTxt.configure(state='disabled')
 
 
+def cleartxt(event):
+    heightIn.delete(0, 'end')
+    weightIn.delete(0, 'end')
+    bustIn.delete(0, 'end')
+    cupIn.delete(0, 'end')
+    waistIn.delete(0, 'end')
+    hipIn.delete(0, 'end')
+
+
 frameMain = Frame(mainWindow)
 frameMain.configure(bg='#444')
 frameOutput = Frame(mainWindow)
@@ -267,10 +276,15 @@ typeTxt.grid(row=4, column=1, pady=5, sticky=W)
 
 calcBtn = Button(mainWindow, text='Calculate', width=10)
 calcBtn.bind('<Button-1>', calculate)
-calcBtn.place(x=57, y=230)
+calcBtn.place(x=26, y=230)
+clearBtn = Button(mainWindow, text='Clear', width=10)
+clearBtn.bind('<Button-1>', cleartxt)
+clearBtn.place(x=110, y=230)
+
 
 frameMain.pack(side=LEFT, anchor=N, ipadx=5, padx=25, pady=10, fill=X)
 frameOutput.pack(side=LEFT, anchor=N, ipadx=5, pady=10, fill=X)
 
 mainWindow.bind('<Return>', calculate)
+mainWindow.bind('<Delete>', cleartxt)
 mainWindow.mainloop()

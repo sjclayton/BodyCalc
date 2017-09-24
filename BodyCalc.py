@@ -54,9 +54,9 @@ def get_breast_desc(bust, cup):
         breast_multiplier = 3
     elif cupOut in ['B', 'C', 'D'] and bust_scale is 'Above Average':
         breast_multiplier = 3
-    elif cupOut in ['DD', 'DDD', 'E', 'EE', 'EEE', 'F', 'G'] and bust_scale is 'Below Average':
+    elif cupOut in ['DD', 'DDD', 'E', 'EE', 'EEE', 'F', 'FF', 'G'] and bust_scale is 'Below Average':
         breast_multiplier = 3
-    elif cupOut in ['DD', 'DDD', 'E', 'EE', 'EEE', 'F', 'G'] and bust_scale is 'Above Average':
+    elif cupOut in ['DD', 'DDD', 'E', 'EE', 'EEE', 'F', 'FF', 'G'] and bust_scale is 'Above Average':
         breast_multiplier = 4
     elif cupOut in ['FFF', 'GG', 'GGG', 'H', 'HH', 'I'] and bust_scale is 'Below Average':
         breast_multiplier = 4
@@ -201,14 +201,15 @@ def calculate(event):
     list(map(lambda y: y.delete(1.0, END), outputs))
 
     get_bmi(weightIn.get(), heightIn.get())
-    bmiTxt.insert(END, bmi)
     get_breast_desc(bustIn.get(), cupIn.get())
-    breastTxt.insert(END, breast_desc)
     get_butt_desc(hipIn.get())
-    buttTxt.insert(END, butt_desc)
     get_body_shape(bustIn.get(), waistIn.get(), hipIn.get())
-    shapeTxt.insert(END, body_shape)
     get_body_type(bmi, body_shape)
+
+    bmiTxt.insert(END, bmi)
+    breastTxt.insert(END, breast_desc)
+    buttTxt.insert(END, butt_desc)
+    shapeTxt.insert(END, body_shape)
     typeTxt.insert(END, body_type)
 
     list(map(lambda z: z.configure(state='disabled'), outputs))

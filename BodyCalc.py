@@ -286,5 +286,5 @@ frameMain.pack(side=LEFT, anchor=N, ipadx=5, padx=25, pady=10, fill=X)
 frameOutput.pack(side=LEFT, anchor=N, ipadx=5, pady=10, fill=X)
 
 mainWindow.bind('<Return>', calculate)
-mainWindow.bind('<Delete>', cleartxt)
+mainWindow.bind('<\>', cleartxt)
 mainWindow.mainloop()

@@ -1,6 +1,6 @@
 # BodyCalc
 
-![Screenshot](https://i.imgur.com/VCiXwMG.png)
+![Screenshot](https://i.imgur.com/LOn68sY.png)
 
 Description
 ---

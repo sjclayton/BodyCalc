@@ -218,6 +218,7 @@ def cleartxt(event):
     inputs = [heightIn, weightIn, bustIn, cupIn, waistIn, hipIn]
 
     list(map(lambda x: x.delete(0, 'end'), inputs))
+    heightIn.focus()
 
 
 frameMain = Frame(mainWindow)

@@ -194,40 +194,30 @@ def calculate(event):
     global butt_desc
     global body_shape
     global body_type
-    bmiTxt.configure(state='normal')
-    bmiTxt.delete(1.0, END)
+
+    outputs = [bmiTxt, breastTxt, buttTxt, shapeTxt, typeTxt]
+
+    list(map(lambda x: x.configure(state='normal'), outputs))
+    list(map(lambda y: y.delete(1.0, END), outputs))
+
     get_bmi(weightIn.get(), heightIn.get())
     bmiTxt.insert(END, bmi)
-    bmiTxt.configure(state='disabled')
-    breastTxt.configure(state='normal')
-    breastTxt.delete(1.0, END)
     get_breast_desc(bustIn.get(), cupIn.get())
     breastTxt.insert(END, breast_desc)
-    breastTxt.configure(state='disabled')
-    buttTxt.configure(state='normal')
-    buttTxt.delete(1.0, END)
     get_butt_desc(hipIn.get())
     buttTxt.insert(END, butt_desc)
-    buttTxt.configure(state='disabled')
-    shapeTxt.configure(state='normal')
-    shapeTxt.delete(1.0, END)
     get_body_shape(bustIn.get(), waistIn.get(), hipIn.get())
     shapeTxt.insert(END, body_shape)
-    shapeTxt.configure(state='disabled')
-    typeTxt.configure(state='normal')
-    typeTxt.delete(1.0, END)
     get_body_type(bmi, body_shape)
     typeTxt.insert(END, body_type)
-    typeTxt.configure(state='disabled')
+
+    list(map(lambda z: z.configure(state='disabled'), outputs))
 
 
 def cleartxt(event):
-    heightIn.delete(0, 'end')
-    weightIn.delete(0, 'end')
-    bustIn.delete(0, 'end')
-    cupIn.delete(0, 'end')
-    waistIn.delete(0, 'end')
-    hipIn.delete(0, 'end')
+    inputs = [heightIn, weightIn, bustIn, cupIn, waistIn, hipIn]
+
+    list(map(lambda x: x.delete(0, 'end'), inputs))
 
 
 frameMain = Frame(mainWindow)
@@ -280,7 +270,6 @@ calcBtn.place(x=26, y=230)
 clearBtn = Button(mainWindow, text='Clear', width=10)
 clearBtn.bind('<Button-1>', cleartxt)
 clearBtn.place(x=110, y=230)
-
 
 frameMain.pack(side=LEFT, anchor=N, ipadx=5, padx=25, pady=10, fill=X)
 frameOutput.pack(side=LEFT, anchor=N, ipadx=5, pady=10, fill=X)

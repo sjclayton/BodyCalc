@@ -29,8 +29,8 @@ def get_bmi(weight, height):
         bmi = 'Error!'
 
 
-def get_breast_desc(bust, cup):
-    global breast_desc
+def get_breast_multiplier(bust, cup):
+    global breast_multiplier
     try:
         bust = int(bust)
         bust_scale = 'Below Average' if bust < 34 else 'Above Average'
@@ -68,19 +68,24 @@ def get_breast_desc(bust, cup):
     # Debugging purposes only!
     print(bust_scale, breast_multiplier)
 
-    if breast_multiplier == 1:
+    return breast_multiplier
+
+
+def get_breast_desc(multiplier):
+    global breast_desc
+    if multiplier == 1:
         breast_desc = 'Tiny'
-    elif breast_multiplier == 2:
+    elif multiplier == 2:
         breast_desc = 'Small'
-    elif breast_multiplier == 3:
+    elif multiplier == 3:
         breast_desc = 'Medium'
-    elif breast_multiplier == 4:
+    elif multiplier == 4:
         breast_desc = 'Large'
-    elif breast_multiplier == 5:
+    elif multiplier == 5:
         breast_desc = 'Huge'
-    elif breast_multiplier == 6:
+    elif multiplier == 6:
         breast_desc = 'Massive'
-    elif breast_multiplier == 99 or breast_multiplier == 0:
+    elif multiplier == 99 or multiplier == 0:
         breast_desc = 'Error!'
 
 
@@ -195,7 +200,8 @@ def calculate(event):
     list(map(lambda y: y.delete(1.0, END), outputs))
 
     get_bmi(weightIn.get(), heightIn.get())
-    get_breast_desc(bustIn.get(), cupIn.get())
+    get_breast_multiplier(bustIn.get(), cupIn.get())
+    get_breast_desc(breast_multiplier)
     get_butt_desc(hipIn.get())
     get_body_shape(bustIn.get(), waistIn.get(), hipIn.get())
     get_body_type(bmi, body_shape)

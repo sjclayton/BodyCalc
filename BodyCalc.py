@@ -35,32 +35,32 @@ def get_breast_desc(bust, cup):
         bust = int(bust)
         bust_scale = 'Below Average' if bust < 34 else 'Above Average'
     except ValueError:
-            bust_scale = 'Error!'
+        bust_scale = 'Error!'
 
-    cupout = cup.upper()
-    if cupout is '' and bust_scale is 'Error!':
+    cup = cup.upper()
+    if cup is '' and bust_scale is 'Error!':
         breast_multiplier = 99
-    elif cupout in ['AA', 'A'] and bust_scale is 'Below Average':
+    elif cup in ['AA', 'A'] and bust_scale is 'Below Average':
         breast_multiplier = 1
-    elif cupout in ['AA', 'A'] and bust_scale is 'Above Average':
+    elif cup in ['AA', 'A'] and bust_scale is 'Above Average':
         breast_multiplier = 2
-    elif cupout in ['B', 'C'] and bust_scale is 'Below Average':
+    elif cup in ['B', 'C'] and bust_scale is 'Below Average':
         breast_multiplier = 2
-    elif cupout in ['D'] and bust_scale is 'Below Average':
+    elif cup in ['D'] and bust_scale is 'Below Average':
         breast_multiplier = 3
-    elif cupout in ['B', 'C', 'D'] and bust_scale is 'Above Average':
+    elif cup in ['B', 'C', 'D'] and bust_scale is 'Above Average':
         breast_multiplier = 3
-    elif cupout in ['DD', 'DDD', 'E', 'EE', 'EEE', 'F', 'FF', 'G'] and bust_scale is 'Below Average':
+    elif cup in ['DD', 'DDD', 'E', 'EE', 'EEE', 'F', 'FF', 'G'] and bust_scale is 'Below Average':
         breast_multiplier = 3
-    elif cupout in ['DD', 'DDD', 'E', 'EE', 'EEE', 'F', 'FF', 'G'] and bust_scale is 'Above Average':
+    elif cup in ['DD', 'DDD', 'E', 'EE', 'EEE', 'F', 'FF', 'G'] and bust_scale is 'Above Average':
         breast_multiplier = 4
-    elif cupout in ['FFF', 'GG', 'GGG', 'H', 'HH', 'I'] and bust_scale is 'Below Average':
+    elif cup in ['FFF', 'GG', 'GGG', 'H', 'HH', 'I'] and bust_scale is 'Below Average':
         breast_multiplier = 4
-    elif cupout in ['FFF', 'GG', 'GGG', 'H', 'HH', 'I'] and bust_scale is 'Above Average':
+    elif cup in ['FFF', 'GG', 'GGG', 'H', 'HH', 'I'] and bust_scale is 'Above Average':
         breast_multiplier = 5
-    elif cupout in ['HHH', 'II', 'III', 'J', 'JJ', 'K'] and bust_scale is 'Below Average':
+    elif cup in ['HHH', 'II', 'III', 'J', 'JJ', 'K'] and bust_scale is 'Below Average':
         breast_multiplier = 5
-    elif cupout in ['HHH', 'II', 'III', 'J', 'JJ', 'K'] and bust_scale is 'Above Average':
+    elif cup in ['HHH', 'II', 'III', 'J', 'JJ', 'K'] and bust_scale is 'Above Average':
         breast_multiplier = 6
     else:
         breast_multiplier = 0
@@ -135,7 +135,7 @@ def get_body_shape(bust, waist, hip):
         if difference <= 5:
             body_shape = 'Banana'
     except ValueError:
-            body_shape = 'Error!'
+        body_shape = 'Error!'
 
 
 def get_body_type(index, shape):
@@ -182,7 +182,7 @@ def get_body_type(index, shape):
         elif type_descriptor == 'E' and shape == 'Pear':
             body_type = 'SSBBW - Bottom Heavy'
     except ValueError:
-            body_type = 'Error!'
+        body_type = 'Error!'
 
 
 def calculate(event):

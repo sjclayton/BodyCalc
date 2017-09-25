@@ -178,7 +178,7 @@ def get_body_type(bmi, shape):
             body_type = 'BBW - Bottom Heavy'
         elif type_descriptor == 'D' and shape == 'Apple':
             body_type = 'BBW - Top Heavy'
-        elif type_descriptor == 'E' and shape == 'Banana':
+        elif type_descriptor == 'E' and shape == 'Banana' or shape == "Hourglass":
             body_type = 'SSBBW'
         elif type_descriptor == 'E' and shape == 'Apple':
             body_type = 'SSBBW - Top Heavy'

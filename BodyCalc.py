@@ -1,4 +1,6 @@
 from tkinter import *
+from tkinter import ttk
+from tkinter.font import Font
 import math
 import os
 
@@ -7,7 +9,7 @@ mainWindow = Tk()
 mainWindow.title('BodyCalc')
 mainWindow.configure(background='#333')
 mainWindow.resizable(False, False)
-mainWindow.minsize(418, 270)
+mainWindow.minsize(390, 260)
 
 if getattr(sys, 'frozen', False):
     application_path = sys._MEIPASS
@@ -187,7 +189,7 @@ def get_body_type(index, shape):
         body_type = 'Error!'
 
 
-def calculate(event):
+def calculate(*args):
     global bmi
     global breast_desc
     global butt_desc
@@ -215,68 +217,65 @@ def calculate(event):
     list(map(lambda z: z.configure(state='disabled'), outputs))
 
 
-def cleartxt(event):
+def cleartxt(*args):
     inputs = [heightIn, weightIn, bustIn, cupIn, waistIn, hipIn]
 
     list(map(lambda x: x.delete(0, 'end'), inputs))
     heightIn.focus()
 
 
-frameInput = Frame(mainWindow)
-frameInput.configure(bg='#444')
+frameStyle = ttk.Style()
+frameStyle.configure('TFrame', background='#444', foreground='white')
+buttonStyle = ttk.Style()
+buttonStyle.configure('TButton', background='gray', font=('Arial', '8', 'bold'))
+labelStyle = ttk.Style()
+labelStyle.configure('TLabel', background='#444', foreground='white', font=('Arial', '9'))
+textFont = Font(family='Arial', size=9)
 
-Label(frameInput, text='Height (M)', bg='#444', fg='#fff').grid(row=0, column=0, pady=10)
-Label(frameInput, text='Weight (KG)', bg='#444', fg='#fff').grid(row=1, column=0, pady=10)
-Label(frameInput, text='Bust / Cup', bg='#444', fg='#fff').grid(row=2, column=0, pady=10)
-Label(frameInput, text='Waist', bg='#444', fg='#fff').grid(row=3, column=0, pady=10)
-Label(frameInput, text='Hip', bg='#444', fg='#fff').grid(row=4, column=0, pady=10)
+frameInput = ttk.Frame(mainWindow)
+ttk.Label(frameInput, text='Height (M)').grid(row=0, column=0, pady=10)
+ttk.Label(frameInput, text='Weight (KG)').grid(row=1, column=0, pady=10)
+ttk.Label(frameInput, text='Bust / Cup').grid(row=2, column=0, pady=10)
+ttk.Label(frameInput, text='Waist').grid(row=3, column=0, pady=10)
+ttk.Label(frameInput, text='Hip').grid(row=4, column=0, pady=10)
+heightIn = ttk.Entry(frameInput, width=4)
+heightIn.grid(row=0, column=1, pady=8)
+weightIn = ttk.Entry(frameInput, width=4)
+weightIn.grid(row=1, column=1, pady=8)
+bustIn = ttk.Entry(frameInput, width=4)
+bustIn.grid(row=2, column=1, pady=8)
+cupIn = ttk.Entry(frameInput, width=4)
+cupIn.grid(row=2, column=2, padx=5, pady=8)
+waistIn = ttk.Entry(frameInput, width=4)
+waistIn.grid(row=3, column=1, pady=8)
+hipIn = ttk.Entry(frameInput, width=4)
+hipIn.grid(row=4, column=1, pady=8)
 
-heightIn = Entry(frameInput, width=4)
-heightIn.grid(row=0, column=1, pady=10)
-weightIn = Entry(frameInput, width=4)
-weightIn.grid(row=1, column=1, pady=10)
-bustIn = Entry(frameInput, width=4)
-bustIn.grid(row=2, column=1, pady=10)
-cupIn = Entry(frameInput, width=4)
-cupIn.grid(row=2, column=2, padx=5, pady=10)
-waistIn = Entry(frameInput, width=4)
-waistIn.grid(row=3, column=1, pady=10)
-hipIn = Entry(frameInput, width=4)
-hipIn.grid(row=4, column=1, pady=10)
 
-
-frameOutput = Frame(mainWindow)
-frameOutput.configure(bg='#444')
-
-Label(frameOutput, text='BMI', bg='#444', fg='#fff', pady=5).grid(row=0, column=0, pady=10)
-Label(frameOutput, text='Breasts', bg='#444', fg='#fff', pady=5).grid(row=1, column=0, pady=5)
-Label(frameOutput, text='Butt', bg='#444', fg='#fff', pady=5).grid(row=2, column=0, pady=5)
-Label(frameOutput, text='Body Shape', bg='#444', fg='#fff', pady=5).grid(row=3, column=0, pady=5)
-Label(frameOutput, text='Body Type', bg='#444', fg='#fff', pady=5).grid(row=4, column=0, pady=5)
-
-bmiTxt = Text(frameOutput, state='disabled', width=10, height=1, bg='#444', fg='#fff', pady=5)
+frameOutput = ttk.Frame(mainWindow)
+ttk.Label(frameOutput, text='BMI').grid(row=0, column=0, pady=10)
+ttk.Label(frameOutput, text='Breasts').grid(row=1, column=0, pady=10)
+ttk.Label(frameOutput, text='Butt').grid(row=2, column=0, pady=10)
+ttk.Label(frameOutput, text='Body Shape').grid(row=3, column=0, pady=10)
+ttk.Label(frameOutput, text='Body Type').grid(row=4, column=0, pady=10)
+bmiTxt = Text(frameOutput, state='disabled', width=10, height=1, bg='#444', fg='#fff', font=textFont, pady=5)
 bmiTxt.grid(row=0, column=1, pady=5, sticky=W)
-breastTxt = Text(frameOutput, state='disabled', width=10, height=1, bg='#444', fg='#fff', pady=5)
+breastTxt = Text(frameOutput, state='disabled', width=10, height=1, bg='#444', fg='#fff', font=textFont, pady=5)
 breastTxt.grid(row=1, column=1, pady=5, sticky=W)
-buttTxt = Text(frameOutput, state='disabled', width=10, height=1, bg='#444', fg='#fff', pady=5)
+buttTxt = Text(frameOutput, state='disabled', width=10, height=1, bg='#444', fg='#fff', font=textFont, pady=5)
 buttTxt.grid(row=2, column=1, pady=5, sticky=W)
-shapeTxt = Text(frameOutput, state='disabled', width=10, height=1, bg='#444', fg='#fff', pady=5)
+shapeTxt = Text(frameOutput, state='disabled', width=10, height=1, bg='#444', fg='#fff', font=textFont, pady=5)
 shapeTxt.grid(row=3, column=1, pady=5, sticky=W)
-typeTxt = Text(frameOutput, state='disabled', width=20, height=1, bg='#444', fg='#fff', pady=5)
+typeTxt = Text(frameOutput, state='disabled', width=20, height=1, bg='#444', fg='#fff', font=textFont, pady=5)
 typeTxt.grid(row=4, column=1, pady=5, sticky=W)
 
 frameButtons = Frame(mainWindow)
 frameButtons.configure(bg='#333')
-
-calcBtn = Button(frameButtons, text='Calculate', width=9)
-calcBtn.bind('<Button-1>', calculate)
-calcBtn.grid(row=0, column=0, padx=3)
-clearBtn = Button(frameButtons, text='Clear', width=7)
-clearBtn.bind('<Button-1>', cleartxt)
-clearBtn.grid(row=0, column=1, padx=2)
+ttk.Button(frameButtons, text='Calculate', width=10, command=calculate).grid(row=0, column=0, ipadx=1, padx=4)
+ttk.Button(frameButtons, text='Clear', width=7, command=cleartxt).grid(row=0, column=1, ipadx=1, padx=4)
 
 frameInput.grid(row=0, column=0, padx=10, pady=10)
-frameOutput.grid(row=0, column=1, ipadx=10, pady=10)
+frameOutput.grid(row=0, column=1, pady=10, ipadx=3)
 frameButtons.grid(row=1, column=0, pady=5)
 
 mainWindow.bind('<Return>', calculate)

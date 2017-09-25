@@ -87,20 +87,17 @@ def get_breast_desc(bust, cup):
 def get_butt_desc(hip):
     global butt_desc
     try:
-        if hip is '':
-            butt_desc = 'Error!'
-        elif int(hip) <= 32:
+        hip = int(hip)
+        if hip <= 32:
             butt_desc = 'Small'
-        elif int(hip) in range(33, 40):
+        elif hip in range(33, 40):
             butt_desc = 'Medium'
-        elif int(hip) in range(40, 44):
+        elif hip in range(40, 44):
             butt_desc = 'Large'
-        elif int(hip) in range(44, 48):
+        elif hip in range(44, 48):
             butt_desc = 'Huge'
-        elif int(hip) >= 48:
+        elif hip >= 48:
             butt_desc = 'Massive'
-        else:
-            butt_desc = ''
     except ValueError:
         butt_desc = 'Error!'
 
@@ -113,15 +110,15 @@ def get_body_shape(bust, waist, hip):
         hip = int(hip)
 
         # Waist is at least 25 percent smaller than Hip AND Bust measurement.
-        if float(waist) * float(1.25) <= int(bust) & int(hip):
+        if float(waist) * float(1.25) <= bust & hip:
             body_shape = 'Hourglass'
 
         # Hip measurement is more than 5 percent bigger than Bust measurement.
-        elif float(hip) * float(1.05) > int(bust):
+        elif float(hip) * float(1.05) > bust:
             body_shape = 'Pear'
 
         # Hip measurement is more than 5 percent smaller than Bust measurement.
-        elif float(hip) * float(1.05) < int(bust):
+        elif float(hip) * float(1.05) < bust:
             body_shape = 'Apple'
 
         # Bust, Waist and Hip measurements are within close range.

@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter.font import Font
+from tkinter.scrolledtext import *
 import math
 import os
 
@@ -217,11 +218,54 @@ def calculate(*args):
     list(map(lambda z: z.configure(state='disabled'), outputs))
 
 
-def cleartxt(*args):
+def clear_input(*args):
     inputs = [heightIn, weightIn, bustIn, cupIn, waistIn, hipIn]
 
     list(map(lambda x: x.delete(0, 'end'), inputs))
     heightIn.focus()
+
+
+def display_help(*args):
+    helpWindow = Toplevel()
+    x = mainWindow.winfo_rootx()
+    y = mainWindow.winfo_rooty()
+    geom = "+%d+%d" % (x, y - 20)
+    helpWindow.geometry(geom)
+    helpWindow.focus_set()
+    helpWindow.title('BodyCalc - Help')
+    helpWindow.configure(background='#333')
+    helpWindow.resizable(False, False)
+    helpWindow.minsize(390, 260)
+    helpWindow.maxsize(390, 260)
+    helpWindow.columnconfigure(0, weight=1)
+    helpBtn.config(state='disable')
+    mainWindow.unbind('<F1>')
+
+    def close_help():
+        helpWindow.destroy()
+        helpBtn.config(state='normal')
+        mainWindow.bind('<F1>', display_help)
+
+    ttk.Label(helpWindow, text='How to use BodyCalc:', background='#333').grid(row=0, column=0, padx=10, pady=10, sticky=W)
+    helpTxt = ScrolledText(helpWindow, width=50, height=13, background='#444', foreground='white', font=textFont,
+                           relief='flat')
+    helpTxt.grid(row=1, column=0, padx=10, sticky=W)
+    helpTxt.insert(END,
+                   'Enter your measurements on the left side and click '
+                   '<Calculate> to see your results on the right side.\n\n'
+                   'All measurements must be entered to get complete results.\n'
+                   'However, you can calculate some items individually.\n\n'
+                   'To calculate BMI:\nEnter your Height and Weight and click <Calculate>\n\n'
+                   'To calculate Body Shape:\nEnter your Bust / Cup, Waist and Hip and click <Calculate>\n\n'
+                   'To calculate Body Type: All fields must be entered.\n\n'
+                   'Breast size can only be calculated if both the Bust and Cup are entered.\n\n'
+                   'If you are missing the necessary measurements to make a\ncertain calculation "Error!" '
+                   'will appear in the results section for\nthat item.\n\n'
+                   'All measurements must be in Inches, except for Height and\nWeight which need to be in Metric '
+                   '(Meters and Kilograms\nrespectively).\n\n'
+                   'Shortcut Keys:\n\n F1 - <Help>\n Enter - <Calculate>\n \ - <Clear All Inputs>')
+    helpTxt.configure(state='disabled')
+    helpWindow.protocol('WM_DELETE_WINDOW', close_help)
 
 
 frameStyle = ttk.Style()
@@ -251,33 +295,40 @@ waistIn.grid(row=3, column=1, pady=8)
 hipIn = ttk.Entry(frameInput, width=4)
 hipIn.grid(row=4, column=1, pady=8)
 
-
 frameOutput = ttk.Frame(mainWindow)
 ttk.Label(frameOutput, text='BMI').grid(row=0, column=0, pady=10)
 ttk.Label(frameOutput, text='Breasts').grid(row=1, column=0, pady=10)
 ttk.Label(frameOutput, text='Butt').grid(row=2, column=0, pady=10)
 ttk.Label(frameOutput, text='Body Shape').grid(row=3, column=0, pady=10)
 ttk.Label(frameOutput, text='Body Type').grid(row=4, column=0, pady=10)
-bmiTxt = Text(frameOutput, state='disabled', width=10, height=1, bg='#444', fg='#fff', font=textFont, pady=5)
+bmiTxt = Text(frameOutput, state='disabled', width=10, height=1, bg='#444', fg='white', font=textFont, pady=5)
 bmiTxt.grid(row=0, column=1, pady=5, sticky=W)
-breastTxt = Text(frameOutput, state='disabled', width=10, height=1, bg='#444', fg='#fff', font=textFont, pady=5)
+breastTxt = Text(frameOutput, state='disabled', width=10, height=1, bg='#444', fg='white', font=textFont, pady=5)
 breastTxt.grid(row=1, column=1, pady=5, sticky=W)
-buttTxt = Text(frameOutput, state='disabled', width=10, height=1, bg='#444', fg='#fff', font=textFont, pady=5)
+buttTxt = Text(frameOutput, state='disabled', width=10, height=1, bg='#444', fg='white', font=textFont, pady=5)
 buttTxt.grid(row=2, column=1, pady=5, sticky=W)
-shapeTxt = Text(frameOutput, state='disabled', width=10, height=1, bg='#444', fg='#fff', font=textFont, pady=5)
+shapeTxt = Text(frameOutput, state='disabled', width=10, height=1, bg='#444', fg='white', font=textFont, pady=5)
 shapeTxt.grid(row=3, column=1, pady=5, sticky=W)
-typeTxt = Text(frameOutput, state='disabled', width=20, height=1, bg='#444', fg='#fff', font=textFont, pady=5)
+typeTxt = Text(frameOutput, state='disabled', width=20, height=1, bg='#444', fg='white', font=textFont, pady=5)
 typeTxt.grid(row=4, column=1, pady=5, sticky=W)
 
 frameButtons = Frame(mainWindow)
 frameButtons.configure(bg='#333')
 ttk.Button(frameButtons, text='Calculate', width=10, command=calculate).grid(row=0, column=0, ipadx=1, padx=4)
-ttk.Button(frameButtons, text='Clear', width=7, command=cleartxt).grid(row=0, column=1, ipadx=1, padx=4)
+ttk.Button(frameButtons, text='Clear', width=7, command=clear_input).grid(row=0, column=1, ipadx=1, padx=4)
+
+frameButtons2 = Frame(mainWindow)
+frameButtons2.configure(bg='#333')
+helpBtn = ttk.Button(frameButtons2, text='?', width=2, command=display_help)
+helpBtn.grid(row=0, column=0, ipadx=1, padx=2)
 
 frameInput.grid(row=0, column=0, padx=10, pady=10)
 frameOutput.grid(row=0, column=1, pady=10, ipadx=3)
 frameButtons.grid(row=1, column=0, pady=5)
+frameButtons2.grid(row=1, column=1, pady=5, sticky=E)
 
 mainWindow.bind('<Return>', calculate)
-mainWindow.bind('<\>', cleartxt)
+mainWindow.bind('<\>', clear_input)
+mainWindow.bind('<F1>', display_help)
+
 mainWindow.mainloop()
